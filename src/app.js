@@ -26,11 +26,11 @@ app.post('/create', (req, res) => {
 app.post('/create_post', async (req, res) => {
     try {
         const { title, content } = req.body
-        
+
         const post = await Post.create({ title, content })
-        
+
         res.send(post)
-    }catch(err) {
+    } catch (err) {
         res.status(400).send(err)
     }
 })
@@ -40,7 +40,7 @@ app.get('/list_posts', async (req, res) => {
         const posts = await Post.find()
 
         res.send({ posts })
-    }catch(err) {
+    } catch (err) {
         res.status(400).send(err)
     }
 })
@@ -52,7 +52,7 @@ app.get('/show_post/:post_id', async (req, res) => {
         const post = await Post.findById(postId)
 
         res.send({ post })
-    } catch(err) {
+    } catch (err) {
         res.status(400).send(err)
     }
 })
@@ -66,7 +66,8 @@ app.patch('/update_post/:post_id', async (req, res) => {
         const post = await Post.findByIdAndUpdate(postId, { title, content }, { new: true })
 
         res.send({ post })
-    } catch(err) {
+
+    } catch (err) {
         res.status(400).send(err)
     }
 })
@@ -78,7 +79,7 @@ app.delete('/delete_post/:post_id', async (req, res) => {
         await Post.findByIdAndDelete(postId)
 
         res.send({ msg: 'Deletado com sucesso' })
-    } catch(err) {
+    } catch (err) {
         res.status(400).send(err)
     }
 })
