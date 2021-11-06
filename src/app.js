@@ -13,21 +13,21 @@ app.use(express.json())
 
 app.use(cors())
 
-app.get('/hello_world', (req, res) => {
-    res.send('hello world')
-})
-
-app.post('/create', (req, res) => {
-    const title = req.body.title
-
-    res.send(`Post: ${title}`)
+app.get('/', (req, res) => {
+    res.send('API Online')
+    res.send('// Algumas Rotas //')
+    res.send('* /create_post')
+    res.send('* /list_posts')
+    res.send('* /list_post')
+    res.send('* /update_post')
+    res.send('* /delete_post')
 })
 
 app.post('/create_post', async (req, res) => {
     try {
-        const { title, content } = req.body
+        const { title, description, content } = req.body
 
-        const post = await Post.create({ title, content })
+        const post = await Post.create({ title, description, content })
 
         res.send(post)
     } catch (err) {
@@ -45,7 +45,7 @@ app.get('/list_posts', async (req, res) => {
     }
 })
 
-app.get('/show_post/:post_id', async (req, res) => {
+app.get('/list_post/:post_id', async (req, res) => {
     try {
         const postId = req.params.post_id
 
@@ -61,9 +61,9 @@ app.patch('/update_post/:post_id', async (req, res) => {
     try {
         const postId = req.params.post_id
 
-        const { title, content } = req.body
+        const { title, description, content } = req.body
 
-        const post = await Post.findByIdAndUpdate(postId, { title, content }, { new: true })
+        const post = await Post.findByIdAndUpdate(postId, { title, description, content }, { new: true })
 
         res.send({ post })
 
